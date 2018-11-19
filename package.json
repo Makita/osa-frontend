@@ -1,0 +1,10 @@
+{
+  "name": "osa-frontend",
+  "version": "1.0.0",
+  "description": "One Stop Auto and Hitch Inc. site.",
+  "main": "index.js",
+  "repository": "https://github.com/Makita/osa-frontend",
+  "author": "Makita",
+  "license": "GNU General Public License 3.0",
+  "private": true
+}
