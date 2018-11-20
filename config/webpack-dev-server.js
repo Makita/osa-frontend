@@ -14,7 +14,7 @@ const options = {
     errors: true
   },
   quiet: false,
-  noInfo: false, // Hide build info
+  noInfo: true,
   contentBase: paths.appAssets, // Where are the static files?
   watchContentBase: true, // Reload page if static content changes
   after() {

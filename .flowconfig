@@ -7,5 +7,14 @@
 [lints]
 
 [options]
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+module.file_ext=.css
+module.file_ext=.scss
+module.name_mapper.extension='css' -> 'empty/object'
+module.name_mapper.extension='scss' -> 'empty/object'
+module.name_mapper='^Assets' -> '<PROJECT_ROOT>/src/assets'
+module.name_mapper='^Components' -> '<PROJECT_ROOT>/src/components'
 
 [strict]

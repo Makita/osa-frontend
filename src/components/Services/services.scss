@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+.container {
+  background-color: #f6f9fc;
+  width: 100vw;
+  padding: 5vh 20px 8vh 20px;
+}
+
+.question, .answer {
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  padding: 3vh 0;
+}
+.question { font-size: 34px; }
+.answer { font-size: 26px; }
+
+.services { margin-top: 35px; }
+
+.glyphicon {
+  $width: 4vw;
+  width: $width;
+  height: $width;
+  text-align: center;
+  line-height: $width;
+  background-color: #333;
+  color: white;
+  border-radius: 50%;
+}
+
+.make_appointment {
+  display: block;
+  margin: 40px auto 0 auto;
+}

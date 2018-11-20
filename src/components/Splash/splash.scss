@@ -1,0 +1,45 @@
+#splash {
+  height: 100vh;
+  background: url("Assets/images/splash.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(53, 53, 53, 0.85);
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  $height: 60vh;
+  height: $height;
+  color: white;
+  font-size: 5em;
+  padding-top: calc(100vh - #{$height});
+  text-align: center;
+
+  p {
+    padding: 0 10px;
+    font-size: 6vmin;
+
+    &:first-of-type {
+      font-size: 8vmin;
+    }
+  }
+}
+
+.logos {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 15vh;
+}
