@@ -10,7 +10,9 @@ import Info from "Components/Info/info";
 import Services from "Components/Services/services";
 import Footer from "Components/Footer/footer";
 
-import Appointment from "Components/AppointmentForm/appointment-form";
+import AppointmentForm from "Components/AppointmentForm/appointment-form";
+
+import style from './app.scss';
 
 const Main = () => {
   return (
@@ -25,14 +27,16 @@ const Main = () => {
 const App = () => {
   return (
     <Fragment>
-      <Navbar />
-      <Switch>
-        <Route exact path="/" component={Main} />
-        <Route exact path="/book" component={Appointment} />
-      </Switch>
+      <div id={style.container}>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/book" component={AppointmentForm} />
+        </Switch>
+      </div>
       <Footer />
     </Fragment>
   )
 };
 
-export default hot(module)(App); // eslint-disable-line no-undef
+export default withRouter(hot(module)(App)); // eslint-disable-line no-undef

@@ -1,0 +1,9 @@
+$footerheight: 40px;
+
+html, body, #container {
+  min-height: calc(100vh - #{$footerheight});
+}
+
+#container {
+  min-height: calc(100vh - #{$footerheight});
+}

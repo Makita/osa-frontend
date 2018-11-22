@@ -69,10 +69,7 @@
         "func-call-spacing": "error",
         "func-name-matching": "error",
         "func-names": "error",
-        "func-style": [
-            "error",
-            "expression"
-        ],
+        "func-style": 0,
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "global-require": "error",
@@ -257,6 +254,7 @@
         "react/jsx-filename-extension": 0,
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
+        "react/require-default-props": 0,
         "require-atomic-updates": "error",
         "require-await": "error",
         "require-jsdoc": "error",

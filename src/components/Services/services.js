@@ -22,7 +22,7 @@ type ServiceProps = {
 const Service = ({ glyph, heading, body }: ServiceProps) => {
   return (
     <Col md={4} sm={6} xs={12}>
-      <Media className={style.onethird}>
+      <Media>
         <Media.Left>
           <Glyphicon glyph={glyph} className={style.glyphicon} />
         </Media.Left>
@@ -41,7 +41,7 @@ const Services = () => {
       <h3 className={style.question}>WHAT CAN WE DO FOR YOU?</h3>
       <h2 className={style.answer}>We Service All Makes And Models</h2>
       <Grid className={style.services}>
-        <Row>
+        <Row className={style.row}>
           <Service
             glyph="tint"
             heading="General"

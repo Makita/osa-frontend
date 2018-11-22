@@ -16,12 +16,22 @@
 
 .services { margin-top: 35px; }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+
+  div {
+    border-bottom: 10px solid transparent;
+  }
+}
+
 .glyphicon {
-  $width: 4vw;
-  width: $width;
-  height: $width;
+  $diameter: 4vw;
+  width: $diameter;
+  height: $diameter;
   text-align: center;
-  line-height: $width;
+  line-height: $diameter;
   background-color: #333;
   color: white;
   border-radius: 50%;
@@ -29,5 +39,5 @@
 
 .make_appointment {
   display: block;
-  margin: 40px auto 0 auto;
+  margin: 30px auto 0 auto;
 }

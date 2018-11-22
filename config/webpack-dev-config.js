@@ -33,7 +33,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.(css|scss)$/,
-        include: [path.resolve(paths.appSrc)],
+        include: [path.resolve(paths.appSrc), path.resolve(paths.appModules)],
         use: [
           {
             loader: "style-loader"

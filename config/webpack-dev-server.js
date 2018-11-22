@@ -13,6 +13,7 @@ const options = {
     warnings: false,
     errors: true
   },
+  historyApiFallback: true,
   quiet: false,
   noInfo: true,
   contentBase: paths.appAssets, // Where are the static files?

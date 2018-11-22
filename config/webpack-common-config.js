@@ -14,9 +14,11 @@ module.exports = {
     extensions: [".js", ".jsx", ".scss"],
     modules: ["node_modules"],
     alias: {
+      Actions: path.resolve(paths.appSrc, "action_creators"),
       Assets: path.resolve(paths.appSrc, "assets"),
       Components: path.resolve(paths.appSrc, "components"),
       Utils: path.resolve(paths.appSrc, "utils"),
+      Reducers: path.resolve(paths.appSrc, "reducers"),
       Services: path.resolve(paths.appSrc, "services")
     }
   },
