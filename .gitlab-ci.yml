@@ -7,7 +7,7 @@ cache:
 
 before_script:
   - node -v
-  - npm install -g jest eslint
+  - yarn
 
 stages:
   - test
