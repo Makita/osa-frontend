@@ -5,6 +5,10 @@ cache:
   paths:
     - node_modules
 
+before_script:
+  - node -v
+  - npm install -g jest eslint
+
 stages:
   - test
 
