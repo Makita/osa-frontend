@@ -18,7 +18,7 @@ const AppointmentsReducer = (state: Object = {}, action: AppointmentAction) => {
     case 'FETCH_APPOINTMENTS':
       return {
         ...state,
-        [action.date]: [action.data]
+        [action.date]: action.data
       };
     default:
       return state;

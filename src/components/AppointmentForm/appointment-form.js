@@ -90,19 +90,6 @@ interface AppointmentFormState {
   time: Date
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ...state
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addAppointment: appointment => dispatch(addApp(appointment)),
-    fetchAppointments: (date, appointments) => dispatch(fetchApps(date, appointments))
-  };
-};
-
 // eslint-disable-next-line max-len
 class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentFormState> {
   state = {
@@ -159,13 +146,17 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
       const startTime = new Date(today[i].start_time);
       const endTime = new Date(today[i].end_time);
 
-      if (getMinutes(startTime) % 30 !== 0) continue;
+      if (getMinutes(startTime) % 30 === 0) {
+        let currentTime = startTime;
 
-      // eslint-disable-next-line max-len
-      for (let currentTime = startTime; currentTime < endTime; currentTime = addMinutes(currentTime, 30)) {
-        times = [...times, currentTime];
+        do {
+          times = [...times, currentTime];
+          currentTime = addMinutes(currentTime, 30);
+        } while (currentTime < endTime);
       }
     }
+
+    console.log(times);
 
     return times;
   }
@@ -295,7 +286,20 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
   }
 }
 
-export default withRouter(connect(
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAppointment: appointment => dispatch(addApp(appointment)),
+    fetchAppointments: (date, appointments) => dispatch(fetchApps(date, appointments))
+  };
+};
+
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AppointmentForm));
+)(withRouter(AppointmentForm));
