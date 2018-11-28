@@ -76,7 +76,12 @@
         "guard-for-in": "error",
         "handle-callback-err": "error",
         "id-blacklist": "error",
-        "id-length": "error",
+        "id-length": [
+            "error",
+            {
+                "exceptions": ["i"]
+            }
+        ],
         "id-match": "error",
         "implicit-arrow-linebreak": [
             "error",
@@ -139,7 +144,7 @@
         "no-caller": "error",
         "no-catch-shadow": "error",
         "no-confusing-arrow": "error",
-        "no-continue": "error",
+        "no-continue": 0,
         "no-div-regex": "error",
         "no-duplicate-imports": "error",
         "no-else-return": "error",
@@ -182,7 +187,12 @@
         "no-octal-escape": "error",
         "no-param-reassign": "error",
         "no-path-concat": "error",
-        "no-plusplus": "error",
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ],
         "no-process-env": "error",
         "no-process-exit": "error",
         "no-proto": "error",
@@ -267,7 +277,7 @@
             "last"
         ],
         "sort-imports": "off",
-        "sort-keys": "error",
+        "sort-keys": 0,
         "sort-vars": "error",
         "space-before-blocks": "error",
         "space-before-function-paren": "off",
