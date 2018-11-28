@@ -156,8 +156,6 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
       }
     }
 
-    console.log(times);
-
     return times;
   }
 
