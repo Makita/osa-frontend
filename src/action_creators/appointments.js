@@ -14,12 +14,14 @@ export function addAppointment(appointment: Object): Object {
 
 /**
  * Action creator for the 'FETCH_APPOINTMENTS' action.
+ * @param {string} date The date all of the appointments are on.
  * @param {Array<Object>} appointments The appointments that were queried for.
  * @return {Object} The action object to be dispatched to the Redux store.
  */
-export function fetchAppointments(appointments: Array<Object>): Object {
+export function fetchAppointments(date: string, appointments: Array<Object>): Object {
   return {
     data: appointments,
+    date,
     type: 'FETCH_APPOINTMENTS'
   };
 }

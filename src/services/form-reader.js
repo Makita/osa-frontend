@@ -11,18 +11,18 @@ class FormReader {
     const startDate: Array<string> = document.getElementById("formControlsDate").value.split("/");
     const startTime: Array<string> = document.getElementById("formControlsTime").value.split(":");
     // eslint-disable-next-line max-len
-    const startObject: Date = new Date(startDate[2], Number(startDate[0]) - 1, startDate[1], startTime[0], startTime[1], 0, 0);
+    const startObject: Date = new Date(startDate[2], Number(startDate[0]) - 1, startDate[1], startTime[0], startTime[1]);
 
     // TODO: Calculate end times
     const endObject: Date = startObject;
 
     this.data = {
-      end_time:     format(endObject),
       first_name:   document.getElementById("formControlsFirstName").value,
       last_name:    document.getElementById("formControlsLastName").value,
       phone_number: document.getElementById("formControlsPhoneNumber").value,
       services,
-      start_time:   format(startObject)
+      start_time:   format(startObject),
+      end_time:     format(endObject)
     };
   }
 

@@ -7,11 +7,14 @@ interface AppointmentAction {
 
 const AppointmentsReducer = (state: Object = {}, action: AppointmentAction) => {
   switch (action.type) {
-    case 'ADD_APPOINTMENT':
+    case 'ADD_APPOINTMENT': {
+      const currentAppointments = state[action.date] || [];
+
       return {
         ...state,
-        [action.date]: [...state[action.date], action.data]
+        [action.date]: [...currentAppointments, action.data]
       };
+    }
     case 'FETCH_APPOINTMENTS':
       return {
         ...state,

@@ -2,6 +2,7 @@
 // @flow
 /* eslint no-magic-numbers: 0 */
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -15,19 +16,24 @@ import {
   Col
 } from 'react-bootstrap';
 import startOfTomorrow from 'date-fns/start_of_tomorrow';
+import isSunday from 'date-fns/is_sunday';
+import getMinutes from 'date-fns/get_minutes';
+import addMinutes from 'date-fns/add_minutes';
 import DatePicker from 'react-datepicker';
+import { connect } from 'react-redux';
 
 import NavbarSpacer from 'Components/NavbarSpacer/navbar-spacer';
 import FormReader from 'Services/form-reader';
 import AppointmentsSocket from 'Services/sockets/appointments-socket';
+
 // eslint-disable-next-line import/no-unresolved
-import addAppointment from 'Actions/appointments';
+import {
+  addAppointment as addApp,
+  fetchAppointments as fetchApps
+} from 'Actions/appointments';
 
 import style from './appointment-form.scss';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
-import { ReduxContext } from '../../index';
-import { fetchAppointments } from '../../action_creators/appointments';
 
 const TextField = ({
   label,
@@ -72,34 +78,46 @@ const ServiceCheckbox = ({
   );
 };
 
+interface AppointmentFormProps {
+  addAppointment: (Object) => Object,
+  fetchAppointments: (string, Object) => Object,
+  appointments: Object
+}
+
 interface AppointmentFormState {
   phoneNumber: string,
   date: Date,
   time: Date
 }
 
-// eslint-disable-next-line max-len
-export default class AppointmentForm extends React.Component<{}, AppointmentFormState> {
-  static contextType = ReduxContext;
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  };
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAppointment: appointment => dispatch(addApp(appointment)),
+    fetchAppointments: (date, appointments) => dispatch(fetchApps(date, appointments))
+  };
+};
+
+// eslint-disable-next-line max-len
+class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentFormState> {
   state = {
     date: startOfTomorrow(),
     phoneNumber: '',
     time: new Date(2018, 11, 21, 9, 0, 0, 0)
   }
 
-  constructor() {
-    super();
+  componentDidMount() {
+    const { date } = this.state;
+    const { fetchAppointments } = this.props;
 
-    const appointmentsSocket = new AppointmentsSocket();
-    const { date }: { date: string } = this.state;
-    const dateParts = date.split("/");
-
-    // eslint-disable-next-line max-len
-    const appointments: Array<Object> = appointmentsSocket.getAppointmentsOnDate(new Date(dateParts[2], dateParts[0], dateParts[1], 8, 0, 0, 0));
-    const store = this.context;
-
-    store.dispatch(fetchAppointments(appointments));
+    fetch(`/appointment/${date.toISOString()}`)
+      .then(res => res.json())
+      .then(data => fetchAppointments(date, data));
   }
 
   validatePhoneNumber = () => {
@@ -129,6 +147,29 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
     this.setState({ phoneNumber: cleanText });
   }
 
+  // eslint-disable-next-line max-statements
+  excludeTimes = () => {
+    const { appointments } = this.props;
+    const { date } = this.state;
+    const today = appointments[date] || [];
+
+    let times: Array<Date> = [];
+
+    for (let i = 0; i < today.length; i++) {
+      const startTime = new Date(today[i].start_time);
+      const endTime = new Date(today[i].end_time);
+
+      if (getMinutes(startTime) % 30 !== 0) continue;
+
+      // eslint-disable-next-line max-len
+      for (let currentTime = startTime; currentTime < endTime; currentTime = addMinutes(currentTime, 30)) {
+        times = [...times, currentTime];
+      }
+    }
+
+    return times;
+  }
+
   handleSubmit = (event: Event) => {
     event.preventDefault();
 
@@ -139,11 +180,20 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
     const appointmentsSocket = new AppointmentsSocket();
 
     appointmentsSocket.makeAppointment(urlEncode, (appointment: Object) => {
-      const store = this.context;
+      const { addAppointment, history, setCreatedAppointment } = this.props;
 
-      store.dispatch(addAppointment(appointment));
+      addAppointment(appointment);
+      setCreatedAppointment(appointment);
+
+      history.push('/details');
     });
   }
+
+  handleDateChange = (date) => { this.setState({ date }) }
+
+  handleTimeChange = (time) => { this.setState({ time }) }
+
+  allowedDate(date) { return !isSunday(date); }
 
   // eslint-disable-next-line max-lines-per-function
   render() {
@@ -164,8 +214,8 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
             </Row>
           </Grid>
           <Form horizontal onSubmit={this.handleSubmit}>
-            <TextField type="text" label="First Name" placeholder="Jason" />
-            <TextField type="text" label="Last Name" placeholder="Choi" />
+            <TextField type="text" label="First Name" placeholder="Jason" required />
+            <TextField type="text" label="Last Name" placeholder="Choi" required />
             <TextField
               type="tel"
               label="Phone Number"
@@ -173,6 +223,7 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               validationState={this.validatePhoneNumber()}
               onChange={this.formatPhoneNumber}
+              required
             />
             <Grid>
               <Row>
@@ -200,7 +251,7 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
                       selected={date}
                       onChange={this.handleDateChange}
                       minDate={startOfTomorrow()}
-                      filterDate={this.isSunday}
+                      filterDate={this.allowedDate}
                       className="form-control"
                       id="formControlsDate"
                     />
@@ -221,7 +272,8 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
                     timeIntervals={30}
                     dateFormat="HH:mm"
                     minTime={new Date(2018, 11, 21, 9, 0, 0, 0)}
-                    maxTime={new Date(2018, 11, 21, 18, 0, 0, 0)}
+                    maxTime={new Date(2018, 11, 21, 17, 30, 0, 0)}
+                    excludeTimes={this.excludeTimes()}
                     className="form-control"
                     id="formControlsTime"
                   />
@@ -242,3 +294,8 @@ export default class AppointmentForm extends React.Component<{}, AppointmentForm
     );
   }
 }
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppointmentForm));
