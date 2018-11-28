@@ -13,6 +13,13 @@ const options = {
     warnings: false,
     errors: true
   },
+  proxy: {
+    '/appointment': {
+      target: "http://localhost:5000",
+      secure: false,
+      changeOrigin: true
+    }
+  },
   historyApiFallback: true,
   quiet: false,
   noInfo: true,

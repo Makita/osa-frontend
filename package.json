@@ -7,6 +7,7 @@
   "author": "Makita",
   "license": "GNU General Public License 3.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
