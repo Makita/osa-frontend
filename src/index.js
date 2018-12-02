@@ -14,8 +14,6 @@ ReactDOM.render(
   (
     <Provider store={createStore(
       mainReducer,
-      // eslint-disable-next-line no-underscore-dangle
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )}>
       <Router>
           <App />
