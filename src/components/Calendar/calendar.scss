@@ -176,7 +176,7 @@
   border-image-slice: 1;
 
   .cell_bg {
-    opacity: 0.05;
+    opacity: 0.05 !important;
     transition: .5s ease-in;
   }
 }
