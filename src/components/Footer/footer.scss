@@ -9,3 +9,14 @@
     text-align: right;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .container {
+    .right {
+      float: none;
+      min-width: 100%;
+      padding-top: 10px;
+      text-align: left;
+    }
+  }
+}
