@@ -1,6 +1,5 @@
-/* eslint-disable no-invalid-this, react/no-danger, max-lines */
+/* eslint-disable no-invalid-this, react/no-danger, max-lines, no-magic-numbers */
 // @flow
-/* eslint no-magic-numbers: 0 */
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
@@ -16,11 +15,13 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-import startOfTomorrow from 'date-fns/start_of_tomorrow';
-import isSunday from 'date-fns/is_sunday';
-import getMinutes from 'date-fns/get_minutes';
-import addMinutes from 'date-fns/add_minutes';
-import isWithinRange from 'date-fns/is_within_range';
+import {
+  startOfTomorrow,
+  isSunday,
+  getMinutes,
+  addMinutes,
+  isWithinRange
+} from 'date-fns';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 

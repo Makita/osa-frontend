@@ -10,8 +10,11 @@ import {
   ListGroupItem
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import format from 'date-fns/format';
-import isSameDay from 'date-fns/is_same_day';
+import {
+  format,
+  isSameDay,
+  startOfToday
+} from 'date-fns';
 
 import { fetchAppointments as fetchApps } from 'Actions/appointments';
 
@@ -63,13 +66,40 @@ interface CalendarModalProps {
 }
 
 class CalendarModal extends Component<CalendarModalProps, {}> {
+  state = {
+    loading: true
+  }
+
+  componentDidMount() {
+    const { fetchAppointments } = this.props;
+    const that = this;
+    const selectedDate = startOfToday();
+
+    this.setState({ loading: true });
+    fetch(`/appointment/${selectedDate.toISOString()}`)
+      .then(res => res.json())
+      .then((data) => {
+        that.setState({ loading: false });
+
+        return fetchAppointments(selectedDate, data);
+      });
+  }
+
   componentDidUpdate(prevProps) {
     const { fetchAppointments, selectedDate } = this.props;
 
     if (!isSameDay(prevProps.selectedDate, selectedDate)) {
+      const that = this;
+
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ loading: true });
       fetch(`/appointment/${selectedDate.toISOString()}`)
         .then(res => res.json())
-        .then(data => fetchAppointments(selectedDate, data));
+        .then((data) => {
+          that.setState({ loading: false });
+
+          return fetchAppointments(selectedDate, data);
+        });
     }
   }
 
@@ -80,6 +110,10 @@ class CalendarModal extends Component<CalendarModalProps, {}> {
       appointments,
       showModal
     } = this.props;
+    const { loading } = this.state;
+    let body = <Appointments appointments={appointments[selectedDate] || []} />
+
+    if (loading) body = "Loading data...";
 
     return (
       <div className="static-modal">
@@ -88,7 +122,7 @@ class CalendarModal extends Component<CalendarModalProps, {}> {
               <Modal.Title>Current Appointments for {format(selectedDate, 'MMMM DD, YYYY')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Appointments appointments={appointments[selectedDate] || []} />
+              {body}
             </Modal.Body>
             <Modal.Footer>
               <Button bsStyle="primary" onClick={handleClose}>Close</Button>

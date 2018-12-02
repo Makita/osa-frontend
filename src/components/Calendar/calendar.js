@@ -2,19 +2,21 @@
 /* eslint-disable no-magic-numbers, no-invalid-this, max-statements */
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import addDays from 'date-fns/add_days';
-import addMonths from 'date-fns/add_months';
-import endOfMonth from 'date-fns/end_of_month';
-import endOfWeek from 'date-fns/end_of_week';
-import format from 'date-fns/format';
-import getDate from 'date-fns/get_date';
-import isSameDay from 'date-fns/is_same_day';
-import isSameMonth from 'date-fns/is_same_month';
-import parse from 'date-fns/parse';
-import setDate from 'date-fns/set_date';
-import startOfMonth from 'date-fns/start_of_month';
-import startOfWeek from 'date-fns/start_of_week';
-import subMonths from 'date-fns/sub_months';
+import {
+  addDays,
+  addMonths,
+  endOfMonth,
+  endOfWeek,
+  format,
+  getDate,
+  isSameDay,
+  isSameMonth,
+  parse,
+  setDate,
+  startOfMonth,
+  startOfWeek,
+  subMonths
+} from 'date-fns';
 
 import NavbarSpacer from 'Components/NavbarSpacer/navbar-spacer';
 import CalendarModal from './CalendarModal/calendar-modal';
