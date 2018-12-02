@@ -43,7 +43,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.(css|scss)$/,
-        include: [path.resolve(paths.appSrc)],
+        include: [path.resolve(paths.appSrc), path.resolve(paths.appModules)],
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: [
