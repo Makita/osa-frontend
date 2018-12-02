@@ -3,6 +3,7 @@ import Enzyme, { shallow, render, mount } from 'enzyme';
 global.shallow = shallow;
 global.render = render;
 global.mount = mount;
+global.fetch = require('jest-fetch-mock');
 
 // Configure an adapter
 import Adapter from 'enzyme-adapter-react-16';

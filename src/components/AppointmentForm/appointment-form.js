@@ -1,9 +1,10 @@
-/* eslint-disable no-invalid-this, react/no-danger */
+/* eslint-disable no-invalid-this, react/no-danger, max-lines */
 // @flow
 /* eslint no-magic-numbers: 0 */
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import {
+  Alert,
   Form,
   FormGroup,
   FormControl,
@@ -19,6 +20,7 @@ import startOfTomorrow from 'date-fns/start_of_tomorrow';
 import isSunday from 'date-fns/is_sunday';
 import getMinutes from 'date-fns/get_minutes';
 import addMinutes from 'date-fns/add_minutes';
+import isWithinRange from 'date-fns/is_within_range';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 
@@ -32,9 +34,30 @@ import {
   fetchAppointments as fetchApps
 } from 'Actions/appointments';
 
+// eslint-disable-next-line import/no-unresolved
+import SERVICES from 'Resources/services';
+
 import style from './appointment-form.scss';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
+const FormErrors = ({
+  errors
+}: {
+  errors: Array<string>
+}) => {
+  if (!errors.length) return "";
+
+  const errorMessages = errors.map(error => <li>{error}</li>)
+
+  return (
+    <Alert bsStyle="danger">
+      <h4>Errors were detected.</h4>
+      <ul>
+        {errorMessages}
+      </ul>
+    </Alert>
+  );
+};
 const TextField = ({
   label,
   help = null,
@@ -65,18 +88,29 @@ const TextField = ({
 };
 
 const ServiceCheckbox = ({
+  slug,
   text,
   time
 }: {
+  slug: string,
   text: string,
   time: string
 }) => {
-  const value = text.toLowerCase().replace(' ', '_');
-
   return (
-    <Checkbox value={value}>{text} ({time})</Checkbox>
+    <Checkbox value={slug}>{text} ({time})</Checkbox>
   );
 };
+
+const ServiceCheckboxes = () => {
+  return SERVICES.map((service) => {
+    return <ServiceCheckbox
+      key={service.slug}
+      slug={service.slug}
+      text={service.name}
+      time={`~${service.time} min`}
+    />
+  });
+}
 
 interface AppointmentFormProps {
   addAppointment: (Object) => Object,
@@ -94,6 +128,7 @@ interface AppointmentFormState {
 class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentFormState> {
   state = {
     date: startOfTomorrow(),
+    errors: [],
     phoneNumber: '',
     time: new Date(2018, 11, 21, 9, 0, 0, 0)
   }
@@ -159,13 +194,38 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
     return times;
   }
 
+  // eslint-disable-next-line max-statements
   handleSubmit = (event: Event) => {
     event.preventDefault();
 
     const formReader = new FormReader();
-    const data = formReader.getData();
-    const urlEncode = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+    const data: {
+      first_name: string,
+      last_name: string,
+      phone_number: string,
+      services: string,
+      start_time: string,
+      end_time: string
+    } = formReader.getData();
 
+    // Validate the data here; it will be validated in the back-end as well
+    const errors = [];
+    const invalidTimes = this.excludeTimes();
+
+    if (data.services.length === 0) errors.push("You must select services that you need performed.");
+    for (let i = 0; i < invalidTimes.length; i++) {
+      if (isWithinRange(invalidTimes[i], new Date(data.start_time), new Date(data.end_time))) {
+        errors.push("The time you have attempted to book is not available.")
+        break;
+      }
+    }
+    if (errors.length) {
+      this.setState({ errors });
+
+      return;
+    }
+
+    const urlEncode = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
     const appointmentsSocket = new AppointmentsSocket();
 
     appointmentsSocket.makeAppointment(urlEncode, (appointment: Object) => {
@@ -186,7 +246,7 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
 
   // eslint-disable-next-line max-lines-per-function
   render() {
-    const { date, time } = this.state;
+    const { date, time, errors } = this.state;
 
     return (
       <React.Fragment>
@@ -198,6 +258,9 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
         <NavbarSpacer />
         <div className={style.container}>
           <Grid>
+            <Row>
+              <FormErrors errors={errors} />
+            </Row>
             <Row>
               <h2 className={style.header}>APPOINTMENT FORM</h2>
             </Row>
@@ -221,12 +284,7 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
                     <ControlLabel>Services Requested</ControlLabel>
                   </Col>
                   <Col md={10}>
-                    <ServiceCheckbox text="Braking fluid flush" time="~30 min" />
-                    <ServiceCheckbox text="Oil change" time="~30 min" />
-                    <ServiceCheckbox text="Cooling system flush" time="~60 min" />
-                    <ServiceCheckbox text="Tire swap" time="~60 min" />
-                    <ServiceCheckbox text="Transmission service" time="~60 min" />
-                    <ServiceCheckbox text="Wheel alignment" time="~60 min" />
+                    <ServiceCheckboxes />
                   </Col>
                 </FormGroup>
               </Row>

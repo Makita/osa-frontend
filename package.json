@@ -39,6 +39,7 @@
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
+    "jest-fetch-mock": "^2.0.0",
     "node-sass": "^4.10.0",
     "path": "^0.12.7",
     "prettier": "^1.15.2",
@@ -96,6 +97,7 @@
       "^Components(.*)": "<rootDir>/src/components$1",
       "^Utils(.*)": "<rootDir>/src/utils$1",
       "^Reducers(.*)": "<rootDir>/src/reducers$1",
+      "^Resources(.*)": "<rootDir>/src/resources$1",
       "^Services(.*)": "<rootDir>/src/services$1",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(scss|css)$": "identity-obj-proxy"

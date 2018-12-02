@@ -19,6 +19,7 @@ module.exports = {
       Components: path.resolve(paths.appSrc, "components"),
       Utils: path.resolve(paths.appSrc, "utils"),
       Reducers: path.resolve(paths.appSrc, "reducers"),
+      Resources: path.resolve(paths.appSrc, "resources"),
       Services: path.resolve(paths.appSrc, "services")
     }
   },

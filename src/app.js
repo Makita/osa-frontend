@@ -1,4 +1,4 @@
-/* eslint-disable no-invalid-this */
+/* eslint-disable no-invalid-this, import/no-unresolved */
 // @flow
 import React, { Component, Fragment } from "react";
 import { Switch, Route } from "react-router-dom";
@@ -13,6 +13,7 @@ import Footer from "Components/Footer/footer";
 
 import AppointmentForm from "Components/AppointmentForm/appointment-form";
 import AppointmentDetails from "Components/AppointmentDetails/appointment-details";
+import Calendar from "Components/Calendar/calendar";
 
 import style from './app.scss';
 
@@ -48,6 +49,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/book" render={() => <AppointmentForm setCreatedAppointment={this.setCreatedAppointment} />} />
             <Route exact path="/details" render={() => <AppointmentDetails appointment={createdAppointment} />} />
+            <Route exact path="/schedule" component={Calendar} />
             <Route path="/" component={Main} />
           </Switch>
         </div>

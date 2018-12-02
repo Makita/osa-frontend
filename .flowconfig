@@ -18,6 +18,7 @@ module.name_mapper='^Actions' -> '<PROJECT_ROOT>/src/action_creators'
 module.name_mapper='^Assets' -> '<PROJECT_ROOT>/src/assets'
 module.name_mapper='^Components' -> '<PROJECT_ROOT>/src/components'
 module.name_mapper='^Reducers' -> '<PROJECT_ROOT>/src/reducers'
+module.name_mapper='^Resources' -> '<PROJECT_ROOT>/src/resources'
 module.name_mapper='^Services' -> '<PROJECT_ROOT>/src/services'
 
 [strict]
