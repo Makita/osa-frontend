@@ -46,7 +46,7 @@ const Appointments = ({
 
   return appointments.map((appointment) => {
     return (
-      <Panel bsStyle="info" key={appointment.id}>
+      <Panel bsStyle="info" key={appointment.rowid}>
         <Panel.Heading>
           <Panel.Title>{appointment.last_name}, {appointment.first_name}</Panel.Title>
         </Panel.Heading>
