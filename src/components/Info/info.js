@@ -17,7 +17,7 @@ const Info = () => {
         <Row>
           <Col md={5}>
             <h1 className={style.header}>ONE STOP AUTO AND HITCH INC.</h1>
-            <p className={style.text}>With a commitment to amazing service, we ensure top quality at affordable prices, friendly service, and a guarantee that your vehicle is in good hands. From standard oil changes to brake replacement and inspections to hitch installations, we have the skills needed to get the job done right and quick, every time.</p>
+            <p className={style.text}>With a commitment to amazing service, we ensure top quality, friendly service, and a guarantee that your vehicle is in good hands. From standard oil changes to brake replacement and inspections to hitch installations, we have the skills needed to get the job done right and quick, every time.</p>
           </Col>
           <Col md={1} />
           <Col md={5}>
