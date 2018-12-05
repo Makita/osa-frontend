@@ -20,13 +20,13 @@ const Navbar = () => {
       </Navibar.Header>
       <Navibar.Collapse>
         <Nav>
-          <LinkContainer to="/">
+          <LinkContainer to="/" exact>
             <NavItem>Home</NavItem>
           </LinkContainer>
-          <LinkContainer to="/book">
+          <LinkContainer to="/book" exact>
             <NavItem>Make an Appointment</NavItem>
           </LinkContainer>
-          <LinkContainer to="schedule">
+          <LinkContainer to="schedule" exact>
             <NavItem>Current Bookings</NavItem>
           </LinkContainer>
         </Nav>
