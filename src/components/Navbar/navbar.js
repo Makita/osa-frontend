@@ -20,6 +20,9 @@ const Navbar = () => {
       </Navibar.Header>
       <Navibar.Collapse>
         <Nav>
+          <LinkContainer to="/">
+            <NavItem>Home</NavItem>
+          </LinkContainer>
           <LinkContainer to="/book">
             <NavItem>Make an Appointment</NavItem>
           </LinkContainer>
