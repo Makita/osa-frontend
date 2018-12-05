@@ -17,6 +17,7 @@ const AppointmentDetails = ({ appointment }: { appointment: Object }) => {
     start_time,
     end_time
   } = appointment;
+  const timeFormat = 'MMMM DD, YYYY hh:mm A';
 
   return (
     <React.Fragment>
@@ -39,11 +40,11 @@ const AppointmentDetails = ({ appointment }: { appointment: Object }) => {
             </tr>
             <tr>
               <td>START TIME</td>
-              <td>{format(new Date(start_time), 'HH:mm')}</td>
+              <td>{format(new Date(start_time), timeFormat)}</td>
             </tr>
             <tr>
               <td>END TIME</td>
-              <td>{format(new Date(end_time), 'HH:mm')}</td>
+              <td>{format(new Date(end_time), timeFormat)}</td>
             </tr>
           </tbody>
         </Table>
