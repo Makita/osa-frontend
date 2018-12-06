@@ -8,6 +8,7 @@ import {
   Image
 } from 'react-bootstrap';
 
+import image from 'Assets/images/frontview.jpg';
 import style from './info.scss';
 
 const Info = () => {
@@ -21,7 +22,7 @@ const Info = () => {
           </Col>
           <Col md={1} />
           <Col md={5}>
-            <Image src="https://via.placeholder.com/1100x700" alt="1100x700" responsive thumbnail />
+            <Image src={image} alt="frontview.jpg" responsive thumbnail />
           </Col>
         </Row>
       </Grid>

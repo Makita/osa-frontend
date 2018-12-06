@@ -10,6 +10,14 @@
   }
 }
 
+.tel {
+  color: white;
+  
+  &:hover {
+    color: #337ab7;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .container {
     .right {

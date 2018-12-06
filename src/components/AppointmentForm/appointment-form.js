@@ -290,6 +290,11 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
                 </FormGroup>
               </Row>
               <Row>
+                <p>
+                  <b>* For all other services, please call us at <a href="tel:+17809880888">(780)-988-0888</a>.</b>
+                </p>
+              </Row>
+              <Row>
                 <FormGroup controlId="formControlsDate">
                   <Col md={2}>
                     <ControlLabel>Date</ControlLabel>
@@ -334,6 +339,9 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
                     <Button type="submit" bsStyle="primary">Book Appointment</Button>
                   </Col>
                 </FormGroup>
+              </Row>
+              <Row>
+                <b>* Please note that operation hours may vary during holiday season.</b>
               </Row>
             </Grid>
           </Form>
