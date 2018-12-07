@@ -33,6 +33,9 @@ class FormReader {
       first_name:   document.getElementById("formControlsFirstName").value,
       last_name:    document.getElementById("formControlsLastName").value,
       phone_number: document.getElementById("formControlsPhoneNumber").value,
+      make:         document.getElementById("formControlsVehicleMake").value,
+      model:        document.getElementById("formControlsVehicleModel").value,
+      year:         document.getElementById("formControlsVehicleYear").value,
       services,
       start_time:   format(startObject),
       end_time:     format(endObject)

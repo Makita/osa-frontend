@@ -13,6 +13,9 @@ const AppointmentDetails = ({ appointment }: { appointment: Object }) => {
     first_name,
     last_name,
     phone_number,
+    make,
+    model,
+    year,
     services,
     start_time,
     end_time
@@ -33,6 +36,10 @@ const AppointmentDetails = ({ appointment }: { appointment: Object }) => {
             <tr>
               <td>PHONE NUMBER</td>
               <td>{phone_number}</td>
+            </tr>
+            <tr>
+              <td>Vehicle</td>
+              <td>{year} {make} {model}</td>
             </tr>
             <tr>
               <td>SERVICES</td>

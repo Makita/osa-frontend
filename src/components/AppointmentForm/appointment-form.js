@@ -278,6 +278,9 @@ class AppointmentForm extends React.Component<AppointmentFormProps, AppointmentF
               onChange={this.formatPhoneNumber}
               required
             />
+            <TextField type="text" label="Vehicle Make" placeholder="Honda" required />
+            <TextField type="text" label="Vehicle Model" placeholder="Civic" required />
+            <TextField type="text" label="Vehicle Year" placeholder="2018" required />
             <Grid>
               <Row>
                 <FormGroup controlId="formControlsServices">
